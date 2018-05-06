@@ -21,6 +21,7 @@ module.exports = {
                   plugins: [
                      '@babel/plugin-proposal-object-rest-spread',
                      '@babel/plugin-transform-react-constant-elements',
+                     '@babel/plugin-proposal-class-properties',
                      'react-hot-loader/babel' // disables itself in prod
                   ]
                }

@@ -6,10 +6,15 @@
    "scripts": {
       "wds": "webpack-dev-server --mode development --hot",
       "bd:front": "webpack --mode production",
-      "dev":
-         "NODE_ENV='development' concurrently -n 'Electron,Webpack' -c 'black.bgYellow,black.bgBlue' 'electron .' 'npm run wds'"
+      "dev": "NODE_ENV='development' concurrently -n 'Electron,Webpack' -c 'black.bgYellow,black.bgBlue' 'electron .' 'npm run wds'"
    },
-   "keywords": ["react", "webpack", "babel", "express", "redux"],
+   "keywords": [
+      "react",
+      "webpack",
+      "babel",
+      "express",
+      "redux"
+   ],
    "author": {
       "name": "Rob Herley",
       "email": "rherley@stevens.edu",
@@ -18,6 +23,7 @@
    "license": "ISC",
    "devDependencies": {
       "@babel/core": "^7.0.0-beta.46",
+      "@babel/plugin-proposal-class-properties": "^7.0.0-beta.46",
       "@babel/plugin-transform-react-constant-elements": "^7.0.0-beta.46",
       "@babel/polyfill": "^7.0.0-beta.46",
       "@babel/preset-env": "^7.0.0-beta.46",
@@ -35,6 +41,7 @@
       "webpack-dev-server": "^3.1.3"
    },
    "dependencies": {
+      "axios": "^0.18.0",
       "react": "^16.3.2",
       "react-dom": "^16.3.2",
       "react-hot-loader": "^4.1.2"
