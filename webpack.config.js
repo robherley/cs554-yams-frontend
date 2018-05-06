@@ -1,3 +1,4 @@
+const path = require('path');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
 
@@ -33,6 +34,20 @@ module.exports = {
                {
                   loader: 'html-loader',
                   options: { minimize: true }
+               }
+            ]
+         },
+         {
+            test: /(\.css|\.scss|\.sass)$/,
+            use: [
+               {
+                  loader: 'style-loader'
+               },
+               {
+                  loader: 'css-loader'
+               },
+               {
+                  loader: 'sass-loader'
                }
             ]
          }

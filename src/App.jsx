@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { hot } from 'react-hot-loader';
+const isMacOs = window.require('process').platform === 'darwin';
 
 class App extends Component {
    state = {
@@ -19,21 +20,28 @@ class App extends Component {
 
    componentDidMount = async () => {
       await this.tryServer();
+      console.log(window.require('process'));
    };
 
    render = () => {
       return (
          <>
-            <h1>Testing</h1>
-            <h2>Debug: {this.state.debug}</h2>
-            <p>
-               Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque
-               magnam omnis quibusdam ratione quaerat nesciunt quia
-               reprehenderit minus consequuntur aliquid dolorum cumque
-               accusantium placeat laudantium, ducimus eius maxime incidunt
-               ipsum?
-            </p>
-            <p>bleh</p>
+            {isMacOs && <div className="titlebar" />}
+            <div className="app">
+               <p>Debug: {this.state.debug}</p>
+               <p>
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque
+                  magnam omnis quibusdam ratione quaerat nesciunt quia
+                  reprehenderit minus consequuntur aliquid dolorum cumque
+                  accusantium placeat laudantium, ducimus eius maxime incidunt
+                  ipsum?
+               </p>
+               {[1, 2, 3, 4].map(i => (
+                  <button className={`btn grad-${i}`} style={{ width: '10em' }}>
+                     test
+                  </button>
+               ))}
+            </div>
          </>
       );
    };

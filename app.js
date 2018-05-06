@@ -20,7 +20,18 @@ const installExtensions = async () => {
 
 const createWindow = () => {
    // Create the browser window.
-   win = new BrowserWindow({ width: 800, height: 600 });
+   if (process.platform === 'darwin') {
+      win = new BrowserWindow({
+         width: 800,
+         height: 600,
+         titleBarStyle: 'hidden'
+      });
+   } else {
+      win = new BrowserWindow({
+         width: 800,
+         height: 600
+      });
+   }
 
    const APP_URL = isDevelopment
       ? 'http://localhost:1337'

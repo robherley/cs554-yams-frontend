@@ -1,0 +1,22 @@
+@import '~nord/src/sass/nord.scss';
+@import 'grad.scss';
+@import 'btn.scss';
+
+body {
+   background-color: $nord0;
+   color: $nord4;
+   font-family: 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif;
+   margin: 0px;
+}
+
+.titlebar {
+   height: 24px;
+   width: 100%;
+   -webkit-app-region: drag;
+}
+
+.app {
+   margin: 1em;
+   display: flex;
+   flex-direction: column;
+}
