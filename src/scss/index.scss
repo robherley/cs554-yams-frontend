@@ -1,5 +1,6 @@
 @import '~nord/src/sass/nord.scss';
 @import 'grad.scss';
+@import 'flex.scss';
 @import 'btn.scss';
 
 body {
@@ -7,16 +8,17 @@ body {
    color: $nord4;
    font-family: 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif;
    margin: 0px;
+   height: 100vh;
+   width: 100vw;
+}
+
+#app {
+   width: 100%;
+   height: 100%;
 }
 
 .titlebar {
    height: 24px;
-   width: 100%;
+   width: 100vw;
    -webkit-app-region: drag;
-}
-
-.app {
-   margin: 1em;
-   display: flex;
-   flex-direction: column;
 }

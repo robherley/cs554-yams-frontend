@@ -1,0 +1,39 @@
+.row {
+   display: flex;
+   flex-direction: row;
+}
+
+.col {
+   display: flex;
+   flex-direction: column;
+}
+
+$align: (
+   flex-start,
+   flex-end,
+   center,
+   space-between,
+   space-around,
+   space-evenly
+);
+@each $e in $align {
+   .align-#{$e} {
+      align-items: $e;
+   }
+}
+
+$just: (
+   flex-start,
+   flex-end,
+   center,
+   stretch
+);
+@each $e in $just {
+   .justify-#{$e} {
+      justify-content: $e;
+   }
+}
+
+.full {
+   height: 100%;
+}
