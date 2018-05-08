@@ -20,3 +20,13 @@
       filter: brightness(200%);
    }
 }
+
+.link {
+   border-bottom: 1px dashed $nord4;
+   cursor: pointer;
+   &:hover {
+      color: $accent;
+      border-bottom-style: solid;
+      border-bottom-color: $accent;
+   }
+}

@@ -60,21 +60,24 @@ class Login extends Component {
             />
          </div>
 
-         <div className="row wide justify-center">
+         <div className="col wide justify-center align-center">
             <button
-               className="btn grad-1"
-               onClick={() => this.setState({ isRegister: true })}
-               style={{ width: '10em' }}
-            >
-               Register
-            </button>
-            <button
-               className="btn grad-2 m-l-1"
+               className="btn grad-2"
                type="submit"
                style={{ width: '10em' }}
             >
                Log In
             </button>
+            <div className="m-t-1">
+               <span>New Here?</span>
+               <a
+                  className="link"
+                  onClick={() => this.setState({ isRegister: true })}
+                  style={{ marginLeft: '0.2em' }}
+               >
+                  Register
+               </a>
+            </div>
          </div>
       </>
    );
@@ -138,21 +141,24 @@ class Login extends Component {
             />
          </div>
 
-         <div className="row wide justify-center align-center">
+         <div className="col wide justify-center align-center">
             <button
-               className="btn grad-2"
-               onClick={() => this.setState({ isRegister: false })}
-               style={{ width: '10em' }}
-            >
-               Log In
-            </button>
-            <button
-               className="btn grad-1 m-l-1"
+               className="btn grad-2 m-l-1"
                type="submit"
                style={{ width: '10em' }}
             >
                Sign Up
             </button>
+            <div className="m-t-1">
+               <span>Have an Account?</span>
+               <a
+                  className="link"
+                  onClick={() => this.setState({ isRegister: false })}
+                  style={{ marginLeft: '0.2em' }}
+               >
+                  Login
+               </a>
+            </div>
          </div>
       </>
    );

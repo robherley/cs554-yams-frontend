@@ -4,11 +4,11 @@ input {
    box-sizing: border-box;
    width: 100%;
    font-size: 14px;
-   outline: 4px solid transparent;
+   outline: 5px solid transparent;
    border: 0;
    transition: outline-color 0.3s ease;
    &:focus {
-      outline: 4px solid #67b26f;
+      outline: 5px solid rgba($accent, 0.8);
    }
    &::placeholder {
       text-transform: uppercase;
