@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import ReduxToastr from 'react-redux-toastr';
 import Chat from './components/Chat';
-import Login from './components/Login';
+import PreAuth from './components/PreAuth';
 import { hot } from 'react-hot-loader';
 const isMacOs = window.require('process').platform === 'darwin';
 
@@ -11,7 +12,17 @@ class App extends Component {
       return (
          <>
             {isMacOs && <div className="titlebar" />}
-            {isAuth ? <Chat /> : <Login />}
+            <ReduxToastr
+               timeOut={3000}
+               newestOnTop={false}
+               preventDuplicates
+               position="top-center"
+               showCloseButton={false}
+               transitionIn="fadeIn"
+               transitionOut="fadeOut"
+               progressBar
+            />
+            {isAuth ? <Chat /> : <PreAuth />}
          </>
       );
    };

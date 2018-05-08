@@ -12,9 +12,8 @@ $align: (
    flex-start,
    flex-end,
    center,
-   space-between,
-   space-around,
-   space-evenly
+   stretch,
+   baseline
 );
 @each $e in $align {
    .align-#{$e} {
@@ -26,7 +25,9 @@ $just: (
    flex-start,
    flex-end,
    center,
-   stretch
+   space-between,
+   space-around,
+   space-evenly
 );
 @each $e in $just {
    .justify-#{$e} {
@@ -34,6 +35,10 @@ $just: (
    }
 }
 
-.full {
+.tall {
    height: 100%;
+}
+
+.wide {
+   width: 100%;
 }

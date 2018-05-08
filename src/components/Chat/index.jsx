@@ -5,7 +5,7 @@ import { logout } from '../../actions/auth.actions';
 class Chat extends Component {
    render() {
       return (
-         <div className="col full align-center">
+         <div className="col tall align-center">
             <h1>Chat Component</h1>
             <button
                className={`btn grad-2`}
