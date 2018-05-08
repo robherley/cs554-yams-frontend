@@ -165,9 +165,9 @@ class Login extends Component {
 
    render = () => {
       return (
-         <div className="col tall align-center">
+         <div className="col tall align-center min-window">
             <div className="row align-baseline">
-               <h1>🍠 YAMS</h1>
+               <h1 className="logo">🍠 YAMS</h1>
                <p className="m-l-1">
                   {this.state.isRegister ? 'Registation' : 'Login'}
                </p>

@@ -18,10 +18,6 @@ body {
    width: 100vw;
 }
 
-h1 {
-   font-size: 3em;
-}
-
 label {
    display: none;
 }
@@ -42,5 +38,14 @@ label {
    width: 60vw;
    overflow: auto;
    padding: 1em;
-   min-height: 350px;
+   min-height: 380px;
+}
+
+.min-window {
+   min-height: 500px;
+   min-width: 400px;
+}
+
+.logo {
+   font-size: 3em;
 }

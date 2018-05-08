@@ -11,7 +11,7 @@ export let loadUserInfo = () => {
             }
          });
          dispatch({
-            type: types.LOAD_USER,
+            type: types.LOAD_USER_INFO,
             payload: data
          });
       } catch (err) {
