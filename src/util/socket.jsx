@@ -5,7 +5,7 @@ import * as auth from '../util/auth';
 let socket;
 
 export let connect = () => {
-   socket = io('http://localhost:3000', {
+   socket = io(process.env.YAMS_BACKEND, {
       query: {
          jwt: auth.getToken()
       }
