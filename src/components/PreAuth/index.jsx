@@ -27,7 +27,6 @@ class Login extends Component {
             email
          });
       } else {
-         console.log(this.state);
          const { username, password } = this.state;
          this.props.login(username, password);
       }
@@ -36,6 +35,12 @@ class Login extends Component {
    handleInputChange = e => {
       this.setState({
          [e.target.name]: e.target.value
+      });
+   };
+
+   swap = () => {
+      this.setState({
+         isRegister: !this.state.isRegister
       });
    };
 
@@ -72,7 +77,7 @@ class Login extends Component {
                <span>New Here?</span>
                <a
                   className="link"
-                  onClick={() => this.setState({ isRegister: true })}
+                  onClick={() => this.swap()}
                   style={{ marginLeft: '0.2em' }}
                >
                   Register
@@ -153,7 +158,7 @@ class Login extends Component {
                <span>Have an Account?</span>
                <a
                   className="link"
-                  onClick={() => this.setState({ isRegister: false })}
+                  onClick={() => this.swap()}
                   style={{ marginLeft: '0.2em' }}
                >
                   Login
