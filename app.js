@@ -2,6 +2,8 @@ const { app, BrowserWindow } = require('electron');
 const path = require('path');
 const url = require('url');
 
+require('dotenv').config();
+
 const isDevelopment = process.env.NODE_ENV === 'development';
 let win;
 
