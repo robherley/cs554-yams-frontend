@@ -4,6 +4,9 @@ import * as socket from '../../util/socket';
 import { loadUserInfo } from '../../actions/user.actions';
 import { logout } from '../../actions/auth.actions';
 
+import Sidebar from './Sidebar';
+import Messages from './Messages';
+
 class Chat extends Component {
    componentDidMount = () => {
       console.log('mounted');
@@ -25,23 +28,12 @@ class Chat extends Component {
 
    render = () => {
       return this.props.user ? (
-         <div className="col tall align-center">
-            <h1>Chat Component</h1>
-            {this.renderInfo()}
-            <button
-               className={`btn grad-1`}
-               style={{ width: '10em' }}
-               onClick={() => socket.sendMsg('testGroup', 'a secret message')}
-            >
-               Test Message
-            </button>
-            <button
-               className={`btn grad-2`}
-               style={{ width: '10em' }}
-               onClick={() => this.props.logout()}
-            >
-               Logout
-            </button>
+         <div className="row tall">
+            <Sidebar />
+            <Messages
+               user={this.props.user}
+               logout={() => this.props.logout()}
+            />
          </div>
       ) : null;
    };

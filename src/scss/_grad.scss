@@ -4,6 +4,10 @@ $colors: (#67b26f, #4ca2cd), (#de6161, #2657eb), (#ee0979, #ff6a00),
 @each $pair in $colors {
    $i: index($colors, $pair);
    .grad-#{$i} {
-      background: linear-gradient(to right, nth($pair, 1), nth($pair, 2));
+      background: linear-gradient(
+         to right,
+         nth($pair, 1),
+         nth($pair, 2)
+      ) !important;
    }
 }

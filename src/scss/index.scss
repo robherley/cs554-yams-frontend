@@ -49,3 +49,48 @@ label {
 .logo {
    font-size: 3em;
 }
+
+.sidebar-container {
+   width: 75px;
+   background-color: $nord2;
+}
+
+.circle {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   border-radius: 200px;
+   min-width: 55px;
+   min-height: 55px;
+   transition: 0.2s filter linear;
+   color: $nord2;
+   &:hover {
+      filter: brightness(120%);
+   }
+}
+
+.chats {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: flex-start;
+   width: 100%;
+   height: calc(100% - 105px);
+   padding-top: 25px;
+   overflow-y: scroll;
+   .circle {
+      margin-top: 10px;
+   }
+}
+
+.settings {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+   width: 100%;
+   height: 80px;
+   .color {
+      background-color: $nord7 !important;
+   }
+}
