@@ -11,7 +11,7 @@ const notiErrors = ({ error }) => {
 export let login = (username, password) => {
    return async dispatch => {
       try {
-         const { data } = await yams.post('/api/v1/user/login', {
+         const { data } = await yams.post('/user/login', {
             username,
             password
          });
@@ -23,6 +23,10 @@ export let login = (username, password) => {
          });
       } catch (err) {
          notiErrors(err.response.data);
+         auth.deauthorize();
+         dispatch({
+            type: types.DEAUTHENTICATE
+         });
       }
    };
 };
@@ -30,9 +34,9 @@ export let login = (username, password) => {
 export let register = regObj => {
    return async dispatch => {
       try {
-         const { data } = await yams.post('/api/v1/user/register', regObj);
+         const { data } = await yams.post('/user/register', regObj);
          toastr.success('Registration Success!', 'Now logging in...');
-         const res = await yams.post('/api/v1/user/login', {
+         const res = await yams.post('/user/login', {
             username: regObj.username,
             password: regObj.password
          });
@@ -43,6 +47,10 @@ export let register = regObj => {
          });
       } catch (err) {
          notiErrors(err.response.data);
+         auth.deauthorize();
+         dispatch({
+            type: types.DEAUTHENTICATE
+         });
       }
    };
 };
