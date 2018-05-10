@@ -113,6 +113,8 @@ class Chat extends Component {
             chatname: newGroup,
             usernames: [...wantedUsers, this.props.user.username]
          });
+         socket.newChat(newGroup, wantedUsers);
+         this.props.loadUserChats();
          this.closeModal();
       } catch (e) {
          console.log(e);

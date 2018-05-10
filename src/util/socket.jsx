@@ -23,7 +23,7 @@ export let connect = () => {
       }
       store.dispatch(loadUserChats());
    });
-   socket.on('addchat', msg => {
+   socket.on('newchat', msg => {
       new Notification(`You were added to ${msg.chat}`);
       store.dispatch(loadUserChats());
    });
@@ -44,9 +44,9 @@ export let sendMsg = (chatId, body, media) => {
    });
 };
 
-export let newChat = (chatId, users) => {
-   socket.emit('newchat', {
-      chatId,
+export let newChat = (chat, users) => {
+   socket.emit('addchat', {
+      chat,
       users
    });
 };
