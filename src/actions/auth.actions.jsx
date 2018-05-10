@@ -16,7 +16,7 @@ export let login = (username, password) => {
             password
          });
          auth.authorize(data.token);
-         toastr.success('Login Success!', 'Now logging in...');
+         toastr.success('Logging In...');
          dispatch({
             type: types.AUTHENTICATE,
             payload: data.token

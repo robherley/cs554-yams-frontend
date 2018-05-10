@@ -1,4 +1,5 @@
 $accent: #de6161;
+$alt: #67b26f;
 
 @import '~nord/src/sass/nord.scss';
 @import '~react-redux-toastr/src/styles/index';
@@ -101,8 +102,8 @@ label {
    align-items: flex-start;
    justify-content: flex-start;
    width: 100%;
-   max-height: calc(100% - 105px);
-   min-height: calc(100% - 105px);
+   max-height: calc(100% - 185px);
+   min-height: calc(100% - 185px);
    padding-top: 25px;
    overflow: scroll;
    .circle {
@@ -119,10 +120,95 @@ label {
    align-items: flex-start;
    justify-content: center;
    width: 100%;
-   height: 80px;
+   height: 160px;
    border-top: 1px solid $nord0;
    overflow: scroll;
    .color {
       background-color: $nord7 !important;
+   }
+}
+
+.modal-wrapper {
+   position: fixed;
+   top: 0;
+   left: 0;
+   width: 100vw;
+   height: 100vh;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   background-color: rgba(black, 0.4);
+   animation: fadeIn 0.3s;
+}
+
+@keyframes fadeIn {
+   from {
+      opacity: 0;
+   }
+   to {
+      opacity: 1;
+   }
+}
+
+.fadeOut {
+   animation: fadeOut 0.3s;
+}
+
+@keyframes fadeOut {
+   from {
+      opacity: 1;
+   }
+   to {
+      opacity: 0;
+   }
+}
+
+.modal {
+   display: flex;
+   height: 425px;
+   width: 70vw;
+   max-width: 600px;
+   background-color: $nord3;
+   border-radius: 5px;
+   padding: 1em;
+   position: relative;
+   box-shadow: 0 12px 24px 0 rgba(0, 0, 0, 0.1);
+}
+
+.modal-search {
+   height: 200px;
+   overflow: scroll;
+   .has {
+      background-color: $alt;
+      color: $nord5;
+   }
+}
+
+.modal-half {
+   width: 50%;
+   ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+   }
+
+   li {
+      padding: 1em;
+      background-color: $nord5;
+      color: $nord2;
+      font-weight: 600;
+      border-bottom: 1px solid $nord2;
+   }
+}
+
+.exit {
+   position: absolute;
+   top: 0.5em;
+   right: 0.5em;
+   &:hover {
+      filter: brightness(120%);
+   }
+   &:active {
+      filter: brightness(200%);
    }
 }

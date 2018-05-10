@@ -7,11 +7,18 @@ input {
    outline: 5px solid transparent;
    border: 0;
    transition: outline-color 0.3s ease;
+   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
    &:focus {
       outline: 5px solid rgba($accent, 0.8);
    }
    &::placeholder {
       text-transform: uppercase;
       letter-spacing: 0.1em;
+   }
+}
+
+.alt {
+   &:focus {
+      outline: 5px solid rgba($alt, 0.8);
    }
 }

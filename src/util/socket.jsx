@@ -15,11 +15,16 @@ export let connect = () => {
    socket.on('connect', () => {
       console.log('Connected to Socket Server!');
    });
-   socket.on('recieve', msg => {
-      new Notification(`New message from ${msg.sentBy} in ${msg.chat}`, {
-         title: 'testing',
-         body: msg.content
-      });
+   socket.on('recieve', async msg => {
+      if (store.getState().user.username !== msg.sentBy) {
+         new Notification(`New message from ${msg.sentBy} in ${msg.chat}`, {
+            body: msg.content
+         });
+      }
+      store.dispatch(loadUserChats());
+   });
+   socket.on('addchat', msg => {
+      new Notification(`You were added to ${msg.chat}`);
       store.dispatch(loadUserChats());
    });
    socket.on('disconnect', () =>
@@ -39,6 +44,13 @@ export let sendMsg = (chatId, body, media) => {
    });
 };
 
+export let newChat = (chatId, users) => {
+   socket.emit('newchat', {
+      chatId,
+      users
+   });
+};
+
 export let disconnect = () => {
-   socket.disconnect();
+   if (socket.connected) socket.disconnect();
 };

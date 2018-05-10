@@ -5,7 +5,7 @@ import yams from '../util/fetchYams';
 export let loadUserInfo = () => {
    return async dispatch => {
       try {
-         const { data } = await yams.get('/api/v1/user/about', {
+         const { data } = await yams.get('/user/about', {
             headers: {
                Authorization: `Bearer ${auth.getToken()}`
             }

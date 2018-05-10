@@ -20,16 +20,20 @@ Circle.defaultProps = {
 };
 
 const Add = ({ onClick }) => (
-   <Circle icon={faPlus} color="#8fbcbb" label="New Chat" onClick={onClick} />
+   <Circle icon={faPlus} color="#67b26f" label="New Chat" onClick={onClick} />
 );
 const Settings = ({ onClick }) => (
-   <Circle icon={faCogs} label="Preferences" onClick={onClick} />
+   <Circle
+      icon={faCogs}
+      color="#4ca2cd"
+      label="Preferences"
+      onClick={onClick}
+   />
 );
 
-const Sidebar = ({ chats, handleClick }) => (
+const Sidebar = ({ chats, handleClick, addChat }) => (
    <div className="sidebar-container tall">
       <div className="chats">
-         <Add />
          {Object.entries(chats).map((e, i) => (
             <Circle
                key={i}
@@ -39,6 +43,7 @@ const Sidebar = ({ chats, handleClick }) => (
          ))}
       </div>
       <div className="settings">
+         <Add onClick={() => addChat()} />
          <Settings onClick={() => handleClick(null)} />
       </div>
    </div>

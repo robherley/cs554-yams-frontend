@@ -16,7 +16,7 @@ class App extends Component {
                timeOut={3000}
                newestOnTop={false}
                preventDuplicates
-               position="top-center"
+               position="top-right"
                showCloseButton={false}
                transitionIn="fadeIn"
                transitionOut="fadeOut"

@@ -11,7 +11,7 @@ const notiErrors = ({ error }) => {
 export let loadUserChats = () => {
    return async dispatch => {
       try {
-         const { data } = await yams.get('/api/v1/user/chats', {
+         const { data } = await yams.get('/user/chats', {
             headers: {
                Authorization: `Bearer ${auth.getToken()}`
             }
