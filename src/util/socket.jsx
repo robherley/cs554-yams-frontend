@@ -1,5 +1,7 @@
 import io from 'socket.io-client';
 import { toastr } from 'react-redux-toastr';
+import { store } from '../index';
+import { loadUserChats } from '../actions/chats.actions';
 import * as auth from '../util/auth';
 
 let socket;
@@ -13,7 +15,13 @@ export let connect = () => {
    socket.on('connect', () => {
       console.log('Connected to Socket Server!');
    });
-   socket.on('msg', msg => console.log(msg));
+   socket.on('recieve', msg => {
+      new Notification(`New message from ${msg.sentBy} in ${msg.chat}`, {
+         title: 'testing',
+         body: msg.content
+      });
+      store.dispatch(loadUserChats());
+   });
    socket.on('disconnect', () =>
       console.log('Disconnected from Socket Server!')
    );
@@ -23,10 +31,11 @@ export let connect = () => {
    });
 };
 
-export let sendMsg = (group, body) => {
+export let sendMsg = (chatId, body, media) => {
    socket.emit('send', {
-      group,
-      body
+      chatId,
+      body,
+      media
    });
 };
 

@@ -13,6 +13,13 @@ class Chat extends Component {
       currentChat: null
    };
 
+   componentWillReceiveProps = nextProps => {
+      if (this.state.currentChat) {
+         // we are not in settings
+         console.log(nextProps);
+      }
+   };
+
    componentDidMount = () => {
       console.log('mounted');
       this.props.loadUserInfo();
@@ -41,7 +48,7 @@ class Chat extends Component {
          <div className="row tall">
             <Sidebar chats={this.props.chats} handleClick={this.changeChat} />
             <Messages
-               chat={this.state.currentChat}
+               chatId={this.state.currentChat}
                user={this.props.user}
                logout={() => this.props.logout()}
             />

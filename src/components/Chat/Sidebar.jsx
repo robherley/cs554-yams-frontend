@@ -19,19 +19,27 @@ Circle.defaultProps = {
    label: 'no label specified'
 };
 
-const Add = () => <Circle icon={faPlus} color="#8fbcbb" label="New Chat" />;
-const Settings = () => <Circle icon={faCogs} label="Preferences" />;
+const Add = ({ onClick }) => (
+   <Circle icon={faPlus} color="#8fbcbb" label="New Chat" onClick={onClick} />
+);
+const Settings = ({ onClick }) => (
+   <Circle icon={faCogs} label="Preferences" onClick={onClick} />
+);
 
 const Sidebar = ({ chats, handleClick }) => (
    <div className="sidebar-container tall">
       <div className="chats">
          <Add />
-         {chats.map((e, i) => (
-            <Circle key={i} label={e.chatname} onClick={() => handleClick(e)} />
+         {Object.entries(chats).map((e, i) => (
+            <Circle
+               key={i}
+               label={e[1].chatname}
+               onClick={() => handleClick(e[0])}
+            />
          ))}
       </div>
       <div className="settings">
-         <Settings />
+         <Settings onClick={() => handleClick(null)} />
       </div>
    </div>
 );

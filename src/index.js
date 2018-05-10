@@ -12,7 +12,7 @@ import App from './App';
 // Style
 import './scss/index.scss';
 
-const store = configureStore();
+export const store = configureStore();
 
 render(
    <Provider store={store}>

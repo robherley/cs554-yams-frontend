@@ -1,48 +1,51 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import * as socket from '../../util/socket';
 
 class Messages extends Component {
    state = {
-      msg: null
+      msg: ''
    };
 
-   componentDidMount = () => {
-      this.scrollToBottom();
-   };
+   renderInfo = () => (
+      <>
+         {Object.entries(this.props.user).map(e => (
+            <span key={e[0]}>
+               {e[0]}: {e[1]}
+            </span>
+         ))}
+         <button
+            className={`btn grad-2`}
+            style={{ width: '10em' }}
+            onClick={() => this.props.logout()}
+         >
+            Logout
+         </button>
+      </>
+   );
 
-   componentDidUpdate = () => {
-      this.scrollToBottom();
-   };
-
-   scrollToBottom = () => {
-      this.el.scrollIntoView({ behavior: 'smooth' });
-   };
-
-   renderInfo = () =>
-      Object.entries(this.props.user).map(e => (
-         <span key={e[0]}>
-            {e[0]}: {e[1]}
-         </span>
-      ));
-
-   sendMessage = () => {
+   sendMessage = chatId => {
       if (this.state.msg) {
-         socket.sendMsg(this.props.chat.chatname, this.state.msg);
+         socket.sendMsg(chatId, this.state.msg, false);
+         this.setState({ msg: '' });
       }
    };
 
-   renderChat = () => (
+   renderChat = chat => (
       <>
-         <h2>Current Chat: {this.props.chat.chatname}</h2>
-         <ul>{this.props.chat.messages.map((e, i) => <li>{e.content}</li>)}</ul>
+         <h2>Current Chat: {chat.chatname}</h2>
+         <ul style={{ maxHeight: '300px', overflow: 'auto' }}>
+            {chat.messages.map((e, i) => <li key={i}>{e.content}</li>)}
+         </ul>
          <input
             style={{ width: '20em' }}
             onChange={e => this.setState({ msg: e.target.value })}
+            value={this.state.msg}
          />
          <button
             className={`btn grad-1`}
             style={{ width: '10em' }}
-            onClick={this.sendMessage}
+            onClick={() => this.sendMessage(chat._id)}
          >
             Send
          </button>
@@ -50,25 +53,16 @@ class Messages extends Component {
    );
 
    render() {
+      const { chats, chatId } = this.props;
       return (
          <div className="message-container col tall align-center wide">
             <h1>Chat Component</h1>
-            {this.props.chat ? this.renderChat() : this.renderInfo()}
-            <button
-               className={`btn grad-2`}
-               style={{ width: '10em' }}
-               onClick={() => this.props.logout()}
-            >
-               Logout
-            </button>
-            <div
-               ref={el => {
-                  this.el = el;
-               }}
-            />
+            {this.props.chatId
+               ? this.renderChat(chats[chatId])
+               : this.renderInfo()}
          </div>
       );
    }
 }
 
-export default Messages;
+export default connect(st => ({ chats: st.chats }), null)(Messages);
