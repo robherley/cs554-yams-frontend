@@ -5,33 +5,35 @@ import faCoffee from '@fortawesome/fontawesome-free-solid/faCoffee';
 import faCogs from '@fortawesome/fontawesome-free-solid/faCogs';
 import faUsers from '@fortawesome/fontawesome-free-solid/faUsers';
 
-const Circle = ({ icon, color }) => (
-   <div className="circle" style={{ backgroundColor: color }}>
-      <FontAwesomeIcon icon={icon} size="2x" />
-   </div>
+const Circle = ({ icon, color, label, onClick }) => (
+   <a className="circle-wrapper" onClick={onClick}>
+      <div className="circle" style={{ backgroundColor: color }}>
+         <FontAwesomeIcon icon={icon} size="2x" />
+      </div>
+      <span>{label}</span>
+   </a>
 );
 Circle.defaultProps = {
    icon: faUsers,
-   color: '#d8dee9'
+   color: '#d8dee9',
+   label: 'no label specified'
 };
 
-const Add = () => <Circle icon={faPlus} color="#8fbcbb" />;
-const Settings = () => <Circle icon={faCogs} />;
+const Add = () => <Circle icon={faPlus} color="#8fbcbb" label="New Chat" />;
+const Settings = () => <Circle icon={faCogs} label="Preferences" />;
 
-class Sidebar extends Component {
-   render() {
-      return (
-         <div className="sidebar-container tall">
-            <div className="chats">
-               <Add />
-               {[1, 2].map(_ => <Circle key={_} />)}
-            </div>
-            <div className="settings">
-               <Circle icon={faCogs} color="#81a1c1" />
-            </div>
-         </div>
-      );
-   }
-}
+const Sidebar = ({ chats, handleClick }) => (
+   <div className="sidebar-container tall">
+      <div className="chats">
+         <Add />
+         {chats.map((e, i) => (
+            <Circle key={i} label={e.chatname} onClick={() => handleClick(e)} />
+         ))}
+      </div>
+      <div className="settings">
+         <Settings />
+      </div>
+   </div>
+);
 
 export default Sidebar;

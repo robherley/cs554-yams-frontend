@@ -5,5 +5,6 @@ export default {
    auth: {
       token: auth.getToken() || null,
       isAuth: auth.isAuthorized()
-   }
+   },
+   chats: []
 };

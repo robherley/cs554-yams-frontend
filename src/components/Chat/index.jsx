@@ -2,15 +2,21 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as socket from '../../util/socket';
 import { loadUserInfo } from '../../actions/user.actions';
+import { loadUserChats } from '../../actions/chats.actions';
 import { logout } from '../../actions/auth.actions';
 
 import Sidebar from './Sidebar';
 import Messages from './Messages';
 
 class Chat extends Component {
+   state = {
+      currentChat: null
+   };
+
    componentDidMount = () => {
       console.log('mounted');
       this.props.loadUserInfo();
+      this.props.loadUserChats();
       socket.connect();
    };
 
@@ -26,11 +32,16 @@ class Chat extends Component {
          </span>
       ));
 
+   changeChat = chat => {
+      this.setState({ currentChat: chat }, () => console.log(this.state));
+   };
+
    render = () => {
       return this.props.user ? (
          <div className="row tall">
-            <Sidebar />
+            <Sidebar chats={this.props.chats} handleClick={this.changeChat} />
             <Messages
+               chat={this.state.currentChat}
                user={this.props.user}
                logout={() => this.props.logout()}
             />
@@ -39,7 +50,8 @@ class Chat extends Component {
    };
 }
 
-export default connect(st => ({ user: st.user }), {
+export default connect(st => ({ user: st.user, chats: st.chats }), {
    loadUserInfo,
+   loadUserChats,
    logout
 })(Chat);
