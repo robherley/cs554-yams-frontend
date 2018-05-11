@@ -254,8 +254,7 @@ label {
    height: 100%;
    display: flex;
    flex-direction: column;
-   align-items: flex-end;
-   // justify-content: space-between;
+   // align-items: flex-end;
    overflow: scroll;
 }
 
@@ -268,7 +267,7 @@ label {
 }
 
 .chat-bubble {
-   padding: 1em;
+   padding: 0.5em 1em;
    max-width: 300px;
    word-wrap: break-word;
    .user {
@@ -300,5 +299,37 @@ label {
    .content {
       background-color: #ffb86c;
       color: $nord2;
+   }
+}
+
+.pic {
+   width: 98%;
+}
+
+.send-txt {
+   background-color: #67b26f;
+}
+
+.send-img {
+   background-color: #de6161;
+}
+
+.file-up {
+   position: relative;
+   display: inline-block;
+   label {
+      display: block;
+      padding: 1em;
+   }
+   input {
+      position: absolute;
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      font-size: 1;
+      width: 0;
+      height: 100%;
+      opacity: 0;
    }
 }

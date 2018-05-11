@@ -34,7 +34,7 @@ class Chat extends Component {
 
    componentWillUnmount = () => {
       socket.disconnect();
-      document.removeEventListener('touchstart', this.escapeListen);
+      document.removeEventListener('keyup', this.escapeListen);
    };
 
    findUsers = _.debounce(async e => {
@@ -73,7 +73,7 @@ class Chat extends Component {
                   newGroup: '',
                   wantedUsers: []
                }),
-            300
+            200
          );
       }
    };
