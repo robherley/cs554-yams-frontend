@@ -8,6 +8,7 @@ import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import faTimesCircle from '@fortawesome/fontawesome-free-solid/faTimesCircle';
 import faBars from '@fortawesome/fontawesome-free-solid/faBars';
 import faUpload from '@fortawesome/fontawesome-free-solid/faUpload';
+import _ from 'lodash';
 
 const Message = ({ content, sentBy, ts, you, media }) => {
    return (
@@ -213,12 +214,13 @@ class Messages extends Component {
                   Add
                </button>
             </div>
-
             <div
                className="col wide m-t-1"
                style={{ width: '20em', maxHeight: '150px', overflow: 'scroll' }}
             >
-               {currChat.users.map((e, i) => (
+               {_.reject(currChat.users, {
+                  username: this.props.user.username
+               }).map((e, i) => (
                   <div key={i}>
                      <div className="row">
                         <span className="box">{e.username}</span>
