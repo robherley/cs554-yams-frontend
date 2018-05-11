@@ -45,7 +45,8 @@ const Message = ({ content, sentBy, ts, you, media }) => {
 class Messages extends Component {
    state = {
       msg: '',
-      media: false
+      media: false,
+      chatprefs: false
    };
 
    scrollToBottom = () => {
@@ -75,7 +76,7 @@ class Messages extends Component {
          this.scrollToBottom();
          return;
       }
-      if (prevProps.chats[chatId]) {
+      if (prevProps.chats[chatId] && chats[chatId]) {
          if (
             prevProps.chats[chatId].messages.length !==
             chats[chatId].messages.length
@@ -118,45 +119,165 @@ class Messages extends Component {
          setTimeout(
             () =>
                this.setState({
-                  media: false
+                  media: false,
+                  chatprefs: false
                }),
             200
          );
       }
    };
 
+   addUser = async username => {
+      try {
+         await yams.post(
+            `/chat/add/${this.props.chatId}`,
+            {
+               username
+            },
+            {
+               headers: {
+                  Authorization: `Bearer ${auth.getToken()}`
+               }
+            }
+         );
+         socket.updateChat(this.props.chatId);
+      } catch (e) {
+         toastr.error('Unable to add user.');
+      }
+      this.setState({ newUser: '' });
+   };
+
+   removeUser = async (username, leave = false) => {
+      let conf = () =>
+         leave
+            ? confirm(
+                 `Are you sure you want to leave ${
+                    this.props.chats[this.props.chatId].chatname
+                 }?`
+              )
+            : confirm(`Are you sure you want to remove ${username}?`);
+      if (conf) {
+         try {
+            await yams.post(
+               `/chat/remove/${this.props.chatId}`,
+               {
+                  username
+               },
+               {
+                  headers: {
+                     Authorization: `Bearer ${auth.getToken()}`
+                  }
+               }
+            );
+            socket.updateChat(this.props.chatId);
+            socket.updateUser(username);
+         } catch (e) {
+            toastr.error('Unable to remove user.');
+         }
+      }
+   };
+
+   leaveChat = async () => {
+      await this.removeUser(this.props.user.username);
+   };
+
+   renderChatPrefs = () => {
+      const currChat = this.props.chats[this.props.chatId];
+      return (
+         <>
+            <h1>Edit Chat</h1>
+            <div>
+               <span style={{ fontWeight: 'bold' }}>Chat Name:</span>{' '}
+               <span>{currChat.chatname}</span>
+            </div>
+            <div>
+               <span style={{ fontWeight: 'bold' }}>Chat ID:</span>{' '}
+               <span>{currChat._id}</span>
+            </div>
+            <div>
+               <span style={{ fontWeight: 'bold' }}>Messages Sent:</span>{' '}
+               <span>{currChat.messages.length}</span>
+            </div>
+
+            <div className="row wide m-t-1" style={{ width: '15em' }}>
+               <input
+                  className="tiny"
+                  placeholder="Add User"
+                  onChange={e => this.setState({ newUser: e.target.value })}
+               />
+               <button
+                  className="btn square"
+                  style={{ width: '6em' }}
+                  onClick={() => this.addUser(this.state.newUser)}
+               >
+                  Add
+               </button>
+            </div>
+
+            <div
+               className="col wide m-t-1"
+               style={{ width: '20em', maxHeight: '150px', overflow: 'scroll' }}
+            >
+               {currChat.users.map((e, i) => (
+                  <div key={i}>
+                     <div className="row">
+                        <span className="box">{e.username}</span>
+                        <button
+                           className="btn square"
+                           style={{ width: '8em' }}
+                           onClick={() => this.removeUser(e.username)}
+                        >
+                           Remove
+                        </button>
+                     </div>
+                  </div>
+               ))}
+            </div>
+            <button
+               className="btn grad-3 m-t-1"
+               style={{ width: '12em' }}
+               onClick={() => this.leaveChat()}
+            >
+               Leave Group
+            </button>
+         </>
+      );
+   };
+
+   renderImgUpload = () => (
+      <>
+         <h1>Upload an Image</h1>
+         <div className="btn file-up">
+            <label htmlFor="file-up">
+               <FontAwesomeIcon icon={faUpload} size="2x" className="exit" />
+            </label>
+            <input
+               name="file-up"
+               type="file"
+               accept="image/*"
+               ref={input => {
+                  this.fileInput = input;
+               }}
+            />
+         </div>
+
+         <button
+            className={`btn grad-1 m-t-2`}
+            style={{ width: '10em' }}
+            onClick={this.sendImage}
+         >
+            Send
+         </button>
+      </>
+   );
+
    renderModal = () => {
-      if (this.state.media) {
+      if (this.state.media || this.state.chatprefs) {
          return (
             <div className="modal-wrapper" ref="media">
                <div className="modal col align-center">
-                  <h1>Upload an Image</h1>
-                  <div className="btn file-up">
-                     <label htmlFor="file-up">
-                        <FontAwesomeIcon
-                           icon={faUpload}
-                           size="2x"
-                           className="exit"
-                        />
-                     </label>
-                     <input
-                        name="file-up"
-                        type="file"
-                        accept="image/*"
-                        ref={input => {
-                           this.fileInput = input;
-                        }}
-                     />
-                  </div>
-
-                  <button
-                     className={`btn grad-1 m-t-2`}
-                     style={{ width: '10em' }}
-                     onClick={this.sendImage}
-                  >
-                     Send
-                  </button>
-
+                  {this.state.media && this.renderImgUpload()}
+                  {this.state.chatprefs && this.renderChatPrefs()}
                   <FontAwesomeIcon
                      icon={faTimesCircle}
                      size="2x"
@@ -176,11 +297,11 @@ class Messages extends Component {
          <h1 className="m-t-3">
             Howdy {this.props.user.firstName}, you're looking good today.
          </h1>
-         {Object.entries(this.props.user).map(e => (
+         {/* {Object.entries(this.props.user).map(e => (
             <span key={e[0]}>
                {e[0]}: {e[1]}
             </span>
-         ))}
+         ))} */}
          <button
             className={`btn grad-2`}
             style={{ width: '10em' }}
@@ -212,6 +333,7 @@ class Messages extends Component {
                   icon={faBars}
                   className="chat-settings exit"
                   size="2x"
+                  onClick={() => this.setState({ chatprefs: true })}
                />
             </div>
             <div className="col tall wide">
@@ -261,13 +383,21 @@ class Messages extends Component {
 
    render() {
       const { chats, chatId } = this.props;
-      return (
-         <div className="message-container col tall align-center wide">
-            {this.props.chatId
-               ? this.renderChat(chats[chatId])
-               : this.renderInfo()}
-         </div>
-      );
+      if (!chats[chatId]) {
+         return (
+            <div className="message-container col tall align-center wide">
+               {this.renderInfo()}
+            </div>
+         );
+      } else {
+         return (
+            <div className="message-container col tall align-center wide">
+               {this.props.chatId
+                  ? this.renderChat(chats[chatId])
+                  : this.renderInfo()}
+            </div>
+         );
+      }
    }
 }
 

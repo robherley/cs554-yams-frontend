@@ -30,3 +30,8 @@
       border-bottom-color: $accent;
    }
 }
+
+.square {
+   @extend .btn;
+   border-radius: 0;
+}

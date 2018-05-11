@@ -117,7 +117,6 @@ class Chat extends Component {
          this.props.loadUserChats();
          this.closeModal();
       } catch (e) {
-         console.log(e);
          toastr.error(e.error ? e.error.msg : e.toString());
       }
    };
@@ -174,7 +173,7 @@ class Chat extends Component {
                   </div>
                   <div className="row wide justify-center">
                      <button
-                        className="btn grad-1 m-l-1"
+                        className="btn grad-1 m-t-1"
                         onClick={this.createNewChat}
                         style={{
                            height: '1em',

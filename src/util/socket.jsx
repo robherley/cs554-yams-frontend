@@ -27,6 +27,9 @@ export let connect = () => {
       new Notification(`You were added to ${msg.chat}`);
       store.dispatch(loadUserChats());
    });
+   socket.on('forceupdate', () => {
+      store.dispatch(loadUserChats());
+   });
    socket.on('disconnect', () =>
       console.log('Disconnected from Socket Server!')
    );
@@ -48,6 +51,18 @@ export let newChat = (chat, creator) => {
    socket.emit('addchat', {
       chat,
       creator
+   });
+};
+
+export let updateChat = id => {
+   socket.emit('updatechat', {
+      id
+   });
+};
+
+export let updateUser = username => {
+   socket.emit('updateuser', {
+      username
    });
 };
 

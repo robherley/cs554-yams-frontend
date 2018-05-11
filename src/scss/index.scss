@@ -139,6 +139,7 @@ label {
    align-items: center;
    background-color: rgba(black, 0.4);
    animation: fadeIn 0.3s;
+   z-index: 99;
 }
 
 @keyframes fadeIn {
@@ -332,4 +333,13 @@ label {
       height: 100%;
       opacity: 0;
    }
+}
+
+.box {
+   padding: 1em;
+   background-color: $nord5;
+   color: $nord2;
+   font-weight: 600;
+   border-bottom: 1px solid $nord2;
+   width: 100%;
 }
