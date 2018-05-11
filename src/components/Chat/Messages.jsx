@@ -4,6 +4,18 @@ import * as socket from '../../util/socket';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import faBars from '@fortawesome/fontawesome-free-solid/faBars';
 
+const Message = ({ content, sentBy, ts, you }) => {
+   return (
+      <div className={you === sentBy ? 'you' : 'them'}>
+         <div>
+            <span className="user">{sentBy}</span>{' '}
+            <span className="timestamp"> {new Date(ts).toLocaleString()}</span>
+         </div>
+         <div className="content">{content}</div>
+      </div>
+   );
+};
+
 class Messages extends Component {
    state = {
       msg: ''
@@ -27,9 +39,6 @@ class Messages extends Component {
    };
 
    componentDidUpdate = (prevProps, prevState, snapshot) => {
-      console.log('props:', prevProps);
-      console.log('state:', prevState);
-      console.log(this.props.chatId);
       const { chatId, chats } = this.props;
       if (prevProps.chatId !== chatId) {
          this.scrollToBottom();
@@ -96,7 +105,9 @@ class Messages extends Component {
             </div>
             <div className="col tall wide">
                <div className="chat-messages">
-                  {chat.messages.map((e, i) => <p key={i}>{e.content}</p>)}
+                  {chat.messages.map((e, i) => (
+                     <Message you={this.props.user.username} key={i} {...e} />
+                  ))}
                   <div
                      style={{ float: 'left', clear: 'both' }}
                      ref={el => {

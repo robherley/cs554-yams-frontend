@@ -225,12 +225,14 @@ label {
 
 .chat-name {
    font-size: 2em;
+   user-select: none;
 }
 
 .chat-tiny {
    font-size: 14px;
    font-style: italic;
    color: rgba($nord4, 0.6);
+   user-select: none;
 }
 
 .chat-settings {
@@ -244,6 +246,7 @@ label {
    height: 40px;
    width: 40px;
    padding: 4px;
+   user-select: none;
 }
 
 .chat-messages {
@@ -252,7 +255,7 @@ label {
    display: flex;
    flex-direction: column;
    align-items: flex-end;
-   justify-content: flex-end;
+   // justify-content: space-between;
    overflow: scroll;
 }
 
@@ -261,5 +264,41 @@ label {
    &::placeholder {
       text-transform: none;
       letter-spacing: 0;
+   }
+}
+
+.chat-bubble {
+   padding: 1em;
+   max-width: 300px;
+   word-wrap: break-word;
+   .user {
+      font-size: 20px;
+   }
+   .timestamp {
+      font-size: 14px;
+      font-style: italic;
+      color: rgba($nord5, 0.5);
+   }
+   .content {
+      width: 100%;
+      padding: 0.4em 0em 0.4em 0.4em;
+   }
+}
+
+.you {
+   @extend .chat-bubble;
+   align-self: flex-end;
+   .content {
+      background-color: #8be9fd;
+      color: $nord2;
+   }
+}
+
+.them {
+   @extend .chat-bubble;
+   align-self: flex-start;
+   .content {
+      background-color: #ffb86c;
+      color: $nord2;
    }
 }
