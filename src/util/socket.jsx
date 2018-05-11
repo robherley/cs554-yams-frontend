@@ -44,10 +44,10 @@ export let sendMsg = (chatId, body, media) => {
    });
 };
 
-export let newChat = (chat, users) => {
+export let newChat = (chat, creator) => {
    socket.emit('addchat', {
       chat,
-      users
+      creator
    });
 };
 
